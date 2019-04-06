@@ -17,6 +17,27 @@ public class SerialNumber {
 
 	public SerialNumber() {
 	}
+	
+	public long getVersion() {
+		return this.version;
+		
+	}
+	
+	public long getType() {
+		return this.type;
+	}
+	
+	public long getMachineId() {
+		return this.machineId;
+	}
+	
+	public long getMillisecond() {
+		return this.millisecond;
+	}
+	
+	public long getSequence() {
+		return this.sequence;
+	}
 
 	@Override
 	public String toString() {
