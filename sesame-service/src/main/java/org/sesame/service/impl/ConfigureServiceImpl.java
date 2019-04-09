@@ -1,22 +1,35 @@
 package org.sesame.service.impl;
 
 import org.sesame.service.interfaces.ConfigureService;
+import org.sesame.service.interfaces.MachineIdProvider;
 
 public class ConfigureServiceImpl implements ConfigureService{
+	private  long version;
+	private long type;
+	private MachineIdProvider machineIdProvider;
+	
+	public void setVersion(long version) {
+		this.version=version;
+	}
+	
+	public void setType(long type) {
+		this.type=type;
+	}
+	
+	public void setMachineIdProvider(MachineIdProvider machineIdProvider) {
+		this.machineIdProvider=machineIdProvider;
+	}
 
 	public long getVersion() {
-		// TODO Auto-generated method stub
-		return 0;
+		return version;
 	}
 
 	public long getType() {
-		// TODO Auto-generated method stub
-		return 0;
+		return type;
 	}
 
 	public long getMachineId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return machineIdProvider.getMachineId();
 	}
 
 }
