@@ -1,4 +1,4 @@
-package org.sesame.service.impl;
+package org.sesame.service.impl.provider;
 
 import org.sesame.service.entity.SerialNumberMeta;
 import org.sesame.service.factory.SerialNumberMetaFac;
