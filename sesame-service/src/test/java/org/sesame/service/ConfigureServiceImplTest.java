@@ -18,4 +18,17 @@ public class ConfigureServiceImplTest {
 		System.out.println(configureService.getMachineId());
 
 	}
+	
+	@Test
+	public void dbMachineIdProviderTest() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+				"/db-configure-service-bean.xml");
+
+		ConfigureService configureService = (ConfigureService) applicationContext.getBean("configureService");
+
+		System.out.println(configureService.getType());
+		System.out.println(configureService.getVersion());
+		System.out.println(configureService.getMachineId());
+
+	}
 }

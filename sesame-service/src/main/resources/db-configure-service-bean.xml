@@ -6,17 +6,30 @@
 
 	<bean id="configureService"
 		class="org.sesame.service.impl.ConfigureServiceImpl">
-		
-		<property name="version" value="1" />
+		<property name="version" value="1" /> 
 		<property name="type" value="3" />
 		<property name="machineIdProvider"
-			ref="propertyMachineIdProvider" />
+			ref="dbMachineIdProvider" />
 	</bean>
 
-	<bean id="propertyMachineIdProvider"
-		class="org.sesame.service.impl.provider.PropertyMachineIdProvider">
-		
-		<property name="machineId" value="1123" />
+	<bean id="dbMachineIdProvider"
+		class="org.sesame.service.impl.provider.DbMachineIdProvider">
+		<property name="jdbcDriver" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost/test?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=tru"/>
+		<property name="user" value="dog"/>
+		<property name="password" value="123456"/>
+		<property name="comboPooledDataSource" ref="comboPooledDataSource" />
+	</bean>
+	
+	<bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	<property name="minPoolSize" value="5"/>
+	<property name="maxPoolSize" value="30"/>
+	<property name="idleConnectionTestPeriod" value="20"/>
+	<property name="maxIdleTime" value="25"/>
+	<property name="breakAfterAcquireFailure" value="false"/>
+	<property name="checkoutTimeout" value="3000"/>
+	<property name="acquireRetryAttempts" value="50"/>
+	<property name="acquireRetryDelay" value="1000"/>
 	</bean>
 
 </beans>

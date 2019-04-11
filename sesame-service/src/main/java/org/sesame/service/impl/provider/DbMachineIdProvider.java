@@ -1,5 +1,7 @@
 package org.sesame.service.impl.provider;
 
+import java.beans.PropertyVetoException;
+
 import org.sesame.service.interfaces.MachineIdProvider;
 import org.sesame.service.util.IpUtil;
 import org.slf4j.Logger;
@@ -16,6 +18,27 @@ public class DbMachineIdProvider implements MachineIdProvider {
 	private long machineId;
 	private JdbcTemplate jdbcTemplate;
 	private ComboPooledDataSource comboPooledDataSource;
+	private String jdbcDriver;
+	private String url;
+	private String user;
+	private String password;
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public void setJdbcDriver(String jdbcDriver) {
+		this.jdbcDriver = jdbcDriver;
+	}
 
 	public void setMachineId(long machineId) {
 		this.machineId = machineId;
@@ -46,6 +69,24 @@ public class DbMachineIdProvider implements MachineIdProvider {
 
 		Long id = null;
 
+		// initial jdbcTemplate
+		try {
+			comboPooledDataSource.setDriverClass(jdbcDriver);
+		} catch (PropertyVetoException e) {
+			log.error("Wrong JDBC driver {}", jdbcDriver);
+			log.error("Wrong JDBC driver error: ", e);
+			throw new IllegalStateException("Wrong JDBC driver ", e);
+		}
+
+		comboPooledDataSource.setJdbcUrl(url);
+        comboPooledDataSource.setUser(user);
+        comboPooledDataSource.setPassword(password);
+        
+        jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setLazyInit(false);
+        jdbcTemplate.setDataSource(comboPooledDataSource);
+        
+        
 		try {
 			id = jdbcTemplate.queryForObject("select ID from DB_MACHINE_ID_PROVIDER where IP = ?", new Object[] { ip },
 					Long.class);
@@ -61,41 +102,40 @@ public class DbMachineIdProvider implements MachineIdProvider {
 		log.info("Fail to get ID from DB for host IP address {}. Next step try to allocate one.", ip);
 
 		int count = jdbcTemplate.update("update DB_MACHINE_ID_PROVIDER set IP = ? where IP is null limit 1", ip);
-		
+
 		if (count <= 0 || count > 1) {
-            String msg = String
-                    .format("Fail to allocte ID for host IP address {}. The {} records are updated. Stop to initialize the DbMachineIdProvider provider.",
-                            ip, count);
+			String msg = String.format(
+					"Fail to allocte ID for host IP address {}. The {} records are updated. Stop to initialize the DbMachineIdProvider provider.",
+					ip, count);
 
-            log.error(msg);
-            throw new IllegalStateException(msg);
-        }
-		
+			log.error(msg);
+			throw new IllegalStateException(msg);
+		}
+
 		try {
-            id = jdbcTemplate.queryForObject(
-                    "select ID from DB_MACHINE_ID_PROVIDER where IP = ?",
-                    new Object[]{ip}, Long.class);
+			id = jdbcTemplate.queryForObject("select ID from DB_MACHINE_ID_PROVIDER where IP = ?", new Object[] { ip },
+					Long.class);
 
-        } catch (EmptyResultDataAccessException e) {
-            // Ignore the exception
-            log.error("Fail to do allocation for ip {}.", ip);
-        }
+		} catch (EmptyResultDataAccessException e) {
+			// Ignore the exception
+			log.error("Fail to do allocation for ip {}.", ip);
+		}
 
-        if (id == null) {
-            String msg = String
-                    .format("Fail to get ID from DB for host IP address {} after allocation. Stop to initialize the DbMachineIdProvider provider.",
-                            ip);
+		if (id == null) {
+			String msg = String.format(
+					"Fail to get ID from DB for host IP address {} after allocation. Stop to initialize the DbMachineIdProvider provider.",
+					ip);
 
-            log.error(msg);
-            throw new IllegalStateException(msg);
-        }
-        
-        machineId = id;
+			log.error(msg);
+			throw new IllegalStateException(msg);
+		}
+
+		machineId = id;
 
 	}
 
 	public long getMachineId() {
-		
+
 		return machineId;
 	}
 

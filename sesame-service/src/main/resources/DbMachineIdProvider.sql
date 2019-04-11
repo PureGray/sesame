@@ -20,7 +20,7 @@ begin
 	LOOP_LABLE:loop  
 	insert into DB_MACHINE_ID_PROVIDER(ID) values(v);  
 	set v=v+1;  
-	if v >= 1024 then 
+	if v >= 256 then 
 	leave LOOP_LABLE;  
 	end if;  
 	end loop;  
