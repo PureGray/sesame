@@ -10,8 +10,8 @@ public class SerialNumberConverter {
 	public static SerialNumber convert(long serialNumber) {
 		long sequence = serialNumber & snMeta.getSequenceBitsMask();
 		serialNumber = serialNumber >>> snMeta.getSequenceBits();
-		long milliseconds = serialNumber & snMeta.getMachineIdBits();
-		serialNumber = serialNumber >>> snMeta.getMachineIdBits();
+		long milliseconds = serialNumber & snMeta.getMillisecondBitsMask();
+		serialNumber = serialNumber >>> snMeta.getMillisecondBits();
 		long machineId = serialNumber & snMeta.getMachineIdBitsMask();
 		serialNumber = serialNumber >>> snMeta.getMachineIdBits();
 		long type = serialNumber & snMeta.getTypeBitsMask();
@@ -23,13 +23,13 @@ public class SerialNumberConverter {
 	}
 
 	public static long convert(SerialNumber serialNumber) {
-		long sn = -1L;
+		long sn = 0L;
 
-		sn &= serialNumber.getSequence();
-		sn &= serialNumber.getMillisecond() << snMeta.getgetMillisecondBitsStartPosition();
-		sn &= serialNumber.getMachineId() << snMeta.getMachineIdBitsStartPosition();
-		sn &= serialNumber.getType() << snMeta.getTypeBitsStartPosition();
-		sn &= serialNumber.getVersion() << snMeta.getVersionBitsStartPosition();
+		sn |= serialNumber.getSequence();
+		sn |= serialNumber.getMillisecond() << snMeta.getgetMillisecondBitsStartPosition();
+		sn |= serialNumber.getMachineId() << snMeta.getMachineIdBitsStartPosition();
+		sn |= serialNumber.getType() << snMeta.getTypeBitsStartPosition();
+		sn |= serialNumber.getVersion() << snMeta.getVersionBitsStartPosition();
 		return sn;
 	}
 
