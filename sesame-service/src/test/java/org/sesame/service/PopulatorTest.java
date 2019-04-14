@@ -3,6 +3,7 @@ package org.sesame.service;
 import org.sesame.service.entity.SerialNumber;
 import org.sesame.service.entity.SerialNumberMeta;
 import org.sesame.service.factory.SerialNumberMetaFac;
+import org.sesame.service.impl.populator.SerialNumberPopulaterAtomicImpl;
 import org.sesame.service.impl.populator.SerialNumberPopulatorImpl;
 import org.sesame.service.impl.populator.SerialNumberPopulatorLockImpl;
 import org.sesame.service.impl.populator.SerialNumberPopulatorSyncImpl;
@@ -42,7 +43,7 @@ public class PopulatorTest {
 	  }
   }
   
- @Test
+
   public void SerialNumberPopulatorLockImplTest() {
 	  SerialNumberPopulator populator=new SerialNumberPopulatorLockImpl();
 	  for(int i=0; i<4;i++) {
@@ -50,4 +51,13 @@ public class PopulatorTest {
 	  
 	  }
   }
+ 
+ @Test
+ public void SerialNumberPopulatorAtomicImplTest() {
+	  SerialNumberPopulator populator=new SerialNumberPopulaterAtomicImpl();
+	  for(int i=0; i<4;i++) {
+		 new Thread(new PopulatorThread(populator)).start();
+	  
+	  }
+ }
 }
