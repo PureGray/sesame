@@ -4,13 +4,15 @@ import org.sesame.service.entity.SerialNumber;
 import org.sesame.service.entity.SerialNumberMeta;
 import org.sesame.service.factory.SerialNumberMetaFac;
 import org.sesame.service.impl.populator.SerialNumberPopulatorImpl;
+import org.sesame.service.impl.populator.SerialNumberPopulatorLockImpl;
+import org.sesame.service.impl.populator.SerialNumberPopulatorSyncImpl;
 import org.sesame.service.interfaces.SerialNumberPopulator;
 import org.sesame.service.util.SerialNumberConverter;
 import org.testng.annotations.Test;
 
 public class PopulatorTest {
  
-	@Test
+
   public void SerialNumberPopulatorImplTest() {
 	  SerialNumber.Builder snBuilder=new SerialNumber.Builder();
 	  SerialNumberPopulator populator=new SerialNumberPopulatorImpl();
@@ -32,14 +34,20 @@ public class PopulatorTest {
   }
   
   
-  @Test
-  public void SerialNumberPopulatorSyncImplTest() {  
-	  for(int i=0; i<10;i++) {
-		 new Thread(new PopulatorThread()).start();
+  public void SerialNumberPopulatorSyncImplTest() {
+	  SerialNumberPopulator populator=new SerialNumberPopulatorSyncImpl();
+	  for(int i=0; i<4;i++) {
+		 new Thread(new PopulatorThread(populator)).start();
 	  
 	  }
+  }
+  
+ @Test
+  public void SerialNumberPopulatorLockImplTest() {
+	  SerialNumberPopulator populator=new SerialNumberPopulatorLockImpl();
+	  for(int i=0; i<4;i++) {
+		 new Thread(new PopulatorThread(populator)).start();
 	  
-	  
-	  
+	  }
   }
 }

@@ -12,7 +12,7 @@ public class SerialNumberPopulatorImpl implements SerialNumberPopulator {
 	private long sequence = -1;
 
 	public Builder populate(Builder snBuilder, SerialNumberMeta serialNumberMeta) {
-		long milliseconds = System.currentTimeMillis();
+		long milliseconds = System.currentTimeMillis()-EPOCH;
 
 		if (milliseconds < lastMilliseconds) {
 
@@ -29,7 +29,7 @@ public class SerialNumberPopulatorImpl implements SerialNumberPopulator {
 			sequence &= serialNumberMeta.getSequenceBitsMask();
 			if (sequence == 0) {
 				while (lastMilliseconds == milliseconds) {
-					milliseconds = System.currentTimeMillis();
+					milliseconds = System.currentTimeMillis()-EPOCH;
 				}
 			}
 		} else {

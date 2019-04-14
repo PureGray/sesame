@@ -11,22 +11,23 @@ import org.sesame.service.util.SerialNumberConverter;
 public class PopulatorThread implements Runnable {
 
 	SerialNumber.Builder snBuilder = new SerialNumber.Builder();
-	SerialNumberPopulator populator = new SerialNumberPopulatorSyncImpl();
+	SerialNumberPopulator populator;
 	SerialNumberMeta snMeta = SerialNumberMetaFac.getSerialNumberMeta();
 
 	SerialNumber sn;
 
-	PopulatorThread() {
+	PopulatorThread(SerialNumberPopulator populator) {
 		snBuilder.version(0).type(1).machineId(221);
-
+		this.populator=populator;
 	}
 
 	public void run() {
-		snBuilder = populator.populate(snBuilder, snMeta);
-		sn = snBuilder.build();
-		System.out.println(sn.toString());
-		System.out.println("long serialNumber: " + SerialNumberConverter.convert(sn));
-
+		for(int i=0;i<100;i++){
+			snBuilder = populator.populate(snBuilder, snMeta);
+			sn = snBuilder.build();
+			System.out.println(sn.toString());
+			System.out.println("long serialNumber: " + SerialNumberConverter.convert(sn));
+		}
 	}
 
 }
