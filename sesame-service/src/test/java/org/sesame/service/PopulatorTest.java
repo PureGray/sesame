@@ -9,7 +9,8 @@ import org.sesame.service.util.SerialNumberConverter;
 import org.testng.annotations.Test;
 
 public class PopulatorTest {
-  @Test
+ 
+	@Test
   public void SerialNumberPopulatorImplTest() {
 	  SerialNumber.Builder snBuilder=new SerialNumber.Builder();
 	  SerialNumberPopulator populator=new SerialNumberPopulatorImpl();
@@ -24,6 +25,18 @@ public class PopulatorTest {
 		  sn=snBuilder.build();
 		  System.out.println(sn.toString());
 		  System.out.println("long serialNumber: "+SerialNumberConverter.convert(sn));
+	  }
+	  
+	  
+	  
+  }
+  
+  
+  @Test
+  public void SerialNumberPopulatorSyncImplTest() {  
+	  for(int i=0; i<10;i++) {
+		 new Thread(new PopulatorThread()).start();
+	  
 	  }
 	  
 	  
