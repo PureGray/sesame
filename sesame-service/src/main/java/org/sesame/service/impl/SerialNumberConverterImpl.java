@@ -6,13 +6,11 @@ import org.sesame.service.interfaces.SerialNumberConverter;
 public class SerialNumberConverterImpl implements SerialNumberConverter{
 
 	public SerialNumber convert(long serialNumber) {
-		// TODO Auto-generated method stub
-		return null;
+		return org.sesame.service.util.SerialNumberConverter.convert(serialNumber);
 	}
 
 	public long convert(SerialNumber serialNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+		return org.sesame.service.util.SerialNumberConverter.convert(serialNumber);
 	}
 
 }

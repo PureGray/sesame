@@ -5,14 +5,15 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<bean id="serialNumberService"
-		class="org.sesame.service.impl.SerialNumberServiceImpl">
+		class="org.sesame.service.impl.SerialNumberServiceImpl"
+		init-method="init">
 		<property name="populator">
 			<bean
-				class="org.sesame.service.impl.populator.SerialNumberPopulatorSyncImpl" ></bean>
+				class="org.sesame.service.impl.populator.SerialNumberPopulatorSyncImpl"></bean>
 		</property>
-		
-		<property name=configureService ref="dbConfigureService" />
+
+		<property name="configureService" ref="dbConfigureService" />
 	</bean>
-	
-	<import resource="db-configure-service-bean.xml"/>
+
+	<import resource="db-configure-service-bean.xml" />
 </beans>

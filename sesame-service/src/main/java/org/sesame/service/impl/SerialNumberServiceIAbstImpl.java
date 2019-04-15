@@ -21,7 +21,9 @@ public abstract class SerialNumberServiceIAbstImpl implements SerialNumberServic
 	
 	
 	public void init() {
+		
 		if(null==snConverter) {
+			System.out.println("test");
 			setSerialNumberConverter(new SerialNumberConverterImpl());
 		}
 		
