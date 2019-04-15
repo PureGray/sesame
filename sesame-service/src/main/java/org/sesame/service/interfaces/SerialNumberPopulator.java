@@ -5,5 +5,5 @@ import org.sesame.service.entity.SerialNumberMeta;
 
 public interface SerialNumberPopulator {
 	final long EPOCH=1555254083685L;
-	public SerialNumber.Builder populate(SerialNumber.Builder sbBuilder,SerialNumberMeta serialNumberMeta);
+	public SerialNumber.Builder populate(SerialNumber.Builder snBuilder,SerialNumberMeta serialNumberMeta);
 }

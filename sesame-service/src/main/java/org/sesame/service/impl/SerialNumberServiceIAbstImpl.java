@@ -25,10 +25,6 @@ public abstract class SerialNumberServiceIAbstImpl implements SerialNumberServic
 			setSerialNumberConverter(new SerialNumberConverterImpl());
 		}
 		
-		if(null==configureService) {
-			setConfigureService(new ConfigureServiceImpl());
-		}
-		
 		if(snMeta==null) {
 			setSerialNumberMeta(SerialNumberMetaFac.getSerialNumberMeta());
 		}
@@ -80,7 +76,32 @@ public abstract class SerialNumberServiceIAbstImpl implements SerialNumberServic
 	public void setSerialNumberMeta(SerialNumberMeta snMeta) {
 		this.snMeta=snMeta;
 	}
+	
+	public long generateSerialNumber(long milliseconds, long seq) {
+		SerialNumber.Builder snBuilder=new SerialNumber.Builder();
+		snBuilder.version(version).type(type).machineId(machineId).millisecond(milliseconds).sequence(seq);
+		
+		return snConverter.convert(snBuilder.build());
+	}
 
-	
-	
+	public long generateSerialNumber(long machineId, long milliseconds, long seq) {
+		SerialNumber.Builder snBuilder=new SerialNumber.Builder();
+		snBuilder.version(version).type(type).machineId(machineId).millisecond(milliseconds).sequence(seq);	
+		return snConverter.convert(snBuilder.build());
+	}
+
+	public long generateSerialNumber(long type, long machineId, long milliseconds, long seq) {
+		SerialNumber.Builder snBuilder=new SerialNumber.Builder();
+		snBuilder.version(version).type(type).machineId(machineId).millisecond(milliseconds).sequence(seq);
+		
+		return snConverter.convert(snBuilder.build());
+		
+	}
+
+	public long generateSerialNumber(long version, long type, long machineId, long milliseconds, long seq) {
+		SerialNumber.Builder snBuilder=new SerialNumber.Builder();
+		snBuilder.version(version).type(type).machineId(machineId).millisecond(milliseconds).sequence(seq);
+		
+		return snConverter.convert(snBuilder.build());
+	}
 }
