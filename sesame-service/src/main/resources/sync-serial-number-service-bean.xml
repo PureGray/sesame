@@ -4,6 +4,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+	<bean id="serialNumberServiceBean"
+		class="org.sesame.service.factory.SerialNumberServiceFactoryBean">
+		<property name="serialNumberService"
+			ref="serialNumberService">
+		</property>
+	</bean>
+
 	<bean id="serialNumberService"
 		class="org.sesame.service.impl.SerialNumberServiceImpl"
 		init-method="init">

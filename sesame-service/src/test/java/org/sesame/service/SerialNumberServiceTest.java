@@ -1,12 +1,12 @@
 package org.sesame.service;
 
+import org.sesame.service.factory.SerialNumberServiceFactoryBean;
 import org.sesame.service.interfaces.SerialNumberService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.annotations.Test;
 
 public class SerialNumberServiceTest {
-  @Test
   public void dbSerialNumberServiceTest() {
 	  ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				"/sync-serial-number-service-bean.xml");
@@ -15,6 +15,18 @@ public class SerialNumberServiceTest {
 	  
 	  for(int i=0; i<4;i++) {
 		  new testThread(i,service).start();
+	  }
+  }
+  
+  @Test
+  public void dbSerialNumberServiceBeanTest() throws Exception {
+	  ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+				"/sync-serial-number-service-bean.xml");
+	  
+	  SerialNumberService serviceFactory=(SerialNumberService) applicationContext.getBean("serialNumberServiceBean");
+	  
+	  for(int i=0; i<4;i++) {
+		  new testThread(i,serviceFactory).start();
 	  }
   }
   
