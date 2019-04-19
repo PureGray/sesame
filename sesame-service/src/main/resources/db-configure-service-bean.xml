@@ -7,7 +7,7 @@
 	<bean id="dbConfigureService"
 		class="org.sesame.service.impl.ConfigureServiceImpl">
 		<property name="version" value="0" /> 
-		<property name="type" value="0" />
+		<property name="type" value="2" />
 		<property name="machineIdProvider"
 			ref="dbMachineIdProvider" />
 	</bean>

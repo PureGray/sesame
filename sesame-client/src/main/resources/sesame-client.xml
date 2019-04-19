@@ -7,9 +7,9 @@
 
     <dubbo:application name="sasame-service"/>
 
-    <dubbo:registry address="multicast://192.168.0.12:18888"/>
+    <dubbo:registry address="multicast://224.5.6.7:18888"/>
 
-    <dubbo:reference id="Service"
+    <dubbo:reference id="serialNumberService"
                      interface="org.sesame.service.interfaces.SerialNumberService"/>
                      
             

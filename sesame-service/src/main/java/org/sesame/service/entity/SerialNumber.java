@@ -1,6 +1,10 @@
 package org.sesame.service.entity;
 
-public class SerialNumber {
+import java.io.Serializable;
+
+public class SerialNumber implements Serializable{
+	private static final long serialVersionUID = -4022215715862598497L;
+	
 	private long version;
 	private long type;
 	private long machineId;

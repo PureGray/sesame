@@ -7,9 +7,9 @@ import org.springframework.beans.factory.FactoryBean;
 
 public class SerialNumberServiceFactoryBean implements FactoryBean<SerialNumberService>{
 	protected final Logger log=LoggerFactory.getLogger(SerialNumberServiceFactoryBean.class);
+	
 	private SerialNumberService serialNumberService;
 	public void setSerialNumberService(SerialNumberService snService) {
-		log.debug(snService.getClass().toString());
 		this.serialNumberService = snService;
 	}
 
