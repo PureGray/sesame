@@ -63,5 +63,6 @@
 		<module>sesame-service</module>
 		<module>sesame-server</module>
     <module>sesame-client</module>
+    <module>sesame-rest</module>
   </modules>
 </project>
