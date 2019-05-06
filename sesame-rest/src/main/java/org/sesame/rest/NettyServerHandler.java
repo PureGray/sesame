@@ -51,7 +51,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 	private SerialNumberService snService;
 
 	public NettyServerHandler() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("spring/rest-main.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("sesame-rest.xml");
 		snService = (SerialNumberService) context.getBean("serialNumberService");
 	}
 

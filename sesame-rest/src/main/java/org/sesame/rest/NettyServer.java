@@ -55,7 +55,7 @@ public class NettyServer {
 	 */
 	public static Properties loadConf() throws IOException {
 		InputStream resourceAsStream = NettyServer.class.getClassLoader()
-				.getResourceAsStream("spring/rest-netty.properties");
+				.getResourceAsStream("rest-netty.properties");
 		// new FileInputStream(new
 		// File(System.getProperty("user.dir")+File.separator+""))
 		System.out.println(System.getProperty("user.dir"));
